@@ -1,0 +1,24 @@
+{
+  "name": "app-log-server",
+  "version": "1.0.0",
+  "description": "Backend server to track job applications",
+  "main": "server.js",
+  "scripts": {
+    "serve": "node server.js"
+  },
+  "author": "Sandi Gau",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^21.1.0",
+    "@hapi/jwt": "^3.0.0",
+    "bcrypt": "^5.1.0",
+    "boom": "^7.3.0",
+    "dotenv": "^16.0.3",
+    "hapi-auth-jwt": "^4.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.8.1"
+  },
+  "devDependencies": {
+    "prettier": "2.8.1"
+  }
+}
