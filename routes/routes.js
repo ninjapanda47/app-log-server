@@ -1,4 +1,6 @@
+const Joi = require("joi");
 const handlers = require("../handlers");
+const applicationSchema = require("../schemas/application");
 
 module.exports = [
   {
@@ -15,13 +17,30 @@ module.exports = [
     handler: handlers.user.validateUserAndReturnToken,
   },
   {
-    method: "GET",
-    path: "/user/test",
+    method: "POST",
+    path: "/application/create",
     options: {
       auth: "jwt",
+      validate: {
+        payload: applicationSchema,
+      },
     },
-    handler: function (request, h) {
-      return "it worked";
+    handler: handlers.application.addApplication,
+  },
+  {
+    method: "PUT",
+    path: "/application/{id}",
+    options: {
+      auth: "jwt",
+      validate: {
+        params: Joi.object({
+          id: Joi.string(),
+        }),
+        payload: Joi.object({
+          update: applicationSchema,
+        }),
+      },
     },
+    handler: handlers.application.updateApplication,
   },
 ];

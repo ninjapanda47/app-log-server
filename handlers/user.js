@@ -24,7 +24,7 @@ const createUser = async (req, h) => {
     newUser = await user.save();
     if (newUser) {
       const token = await createToken(newUser);
-      return { id_token: token };
+      return { id_token: token, username: newUser.username };
     }
   } catch (error) {
     console.log(error);
@@ -40,7 +40,7 @@ const validateUserAndReturnToken = async (req, h) => {
     const match = await bcrypt.compare(req.payload.password, user.passwordHash);
     if (match) {
       const token = await createToken(match);
-      return { id_token: token };
+      return { id_token: token, username: user.username };
     } else {
       throw boom.notAcceptable("Username and password did not match.");
     }
