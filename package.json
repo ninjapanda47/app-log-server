@@ -4,7 +4,8 @@
   "description": "Backend server to track job applications",
   "main": "server.js",
   "scripts": {
-    "serve": "node server.js"
+    "serve": "node index.js",
+    "test": "mocha"
   },
   "author": "Sandi Gau",
   "license": "ISC",
@@ -19,6 +20,11 @@
     "mongoose": "^6.8.1"
   },
   "devDependencies": {
-    "prettier": "2.8.1"
+    "@hapi/code": "^9.0.2",
+    "@hapi/lab": "^25.0.1",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "prettier": "2.8.1",
+    "sinon": "^15.0.1"
   }
 }

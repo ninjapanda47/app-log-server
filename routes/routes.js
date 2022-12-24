@@ -1,6 +1,6 @@
 const Joi = require("joi");
 const handlers = require("../handlers");
-const applicationSchema = require("../schemas/application");
+const { user, application } = require("../schemas");
 
 module.exports = [
   {
@@ -10,7 +10,12 @@ module.exports = [
       return "This is Sandi's backend server for tracking job applications!";
     },
   },
-  { method: "POST", path: "/user/create", handler: handlers.user.createUser },
+  {
+    method: "POST",
+    path: "/user/create",
+    handler: handlers.user.createUser,
+    options: { validate: { payload: Joi.object({ user }) } },
+  },
   {
     method: "POST",
     path: "/user/login",
@@ -22,7 +27,7 @@ module.exports = [
     options: {
       auth: "jwt",
       validate: {
-        payload: applicationSchema,
+        payload: Joi.object(application),
       },
     },
     handler: handlers.application.addApplication,
@@ -37,7 +42,7 @@ module.exports = [
           id: Joi.string(),
         }),
         payload: Joi.object({
-          update: applicationSchema,
+          update: application,
         }),
       },
     },

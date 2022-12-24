@@ -12,6 +12,7 @@ const createToken = async (user) => {
 };
 
 // add check for existing user
+// No point for reset password handler cause its a personal project
 
 const createUser = async (req, h) => {
   const saltRounds = 10;
@@ -24,7 +25,7 @@ const createUser = async (req, h) => {
     newUser = await user.save();
     if (newUser) {
       const token = await createToken(newUser);
-      return { id_token: token, username: newUser.username };
+      return { id_token: token, user: newUser };
     }
   } catch (error) {
     console.log(error);
@@ -40,7 +41,7 @@ const validateUserAndReturnToken = async (req, h) => {
     const match = await bcrypt.compare(req.payload.password, user.passwordHash);
     if (match) {
       const token = await createToken(match);
-      return { id_token: token, username: user.username };
+      return { id_token: token, user: user };
     } else {
       throw boom.notAcceptable("Username and password did not match.");
     }
@@ -51,3 +52,4 @@ const validateUserAndReturnToken = async (req, h) => {
 
 exports.createUser = createUser;
 exports.validateUserAndReturnToken = validateUserAndReturnToken;
+exports.createToken = createToken;
