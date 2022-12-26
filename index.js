@@ -1,15 +1,15 @@
 "use strict";
+require("dotenv").config();
 const { init } = require("./server");
 const mongoose = require("mongoose");
 
 async function start() {
-  const url = "mongodb://127.0.0.1:27017/application-log";
   try {
     const server = await init();
     await server.start();
     console.log("Server running at:", server.info.uri);
     mongoose
-      .connect(url, { useNewUrlParser: true })
+      .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
       .then(() => console.log("MongoDB is connected"))
       .catch((err) => console.error(err));
   } catch (err) {

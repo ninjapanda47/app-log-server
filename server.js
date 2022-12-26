@@ -1,9 +1,8 @@
 "use strict";
-
+require("dotenv").config();
 const Hapi = require("@hapi/hapi");
 const Jwt = require("@hapi/jwt");
 const routes = require("./routes/routes");
-const secret = require("./config");
 
 exports.init = async () => {
   const server = Hapi.server({
@@ -14,7 +13,7 @@ exports.init = async () => {
   require("./models");
   await server.register(Jwt);
   server.auth.strategy("jwt", "jwt", {
-    keys: { key: secret, algorithms: ["HS256"] },
+    keys: { key: process.env.SECRET_KEY, algorithms: ["HS256"] },
     verify: { aud: false, iss: false, sub: false, exp: true },
     validate: false,
   });

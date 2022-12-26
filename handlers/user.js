@@ -1,11 +1,10 @@
 const { User } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const secret = require("../config");
 const boom = require("boom");
 
 const createToken = async (user) => {
-  return jwt.sign({ id: user._id, email: user.email }, secret, {
+  return jwt.sign({ id: user._id, email: user.email }, process.env.SECRET_KEY, {
     algorithm: "HS256",
     expiresIn: "1h",
   });
