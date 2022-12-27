@@ -2,6 +2,18 @@ const { Application } = require("../models");
 const boom = require("boom");
 
 // handlers for add, update and delete applications
+const getApplications = async (req, h) => {
+  try {
+    const applications = await Application.find({});
+    return {
+      applications,
+    };
+  } catch (error) {
+    console.log(error);
+    throw boom.badRequest(error);
+  }
+};
+
 const addApplication = async (req, h) => {
   let application = new Application(req.payload);
   try {
@@ -32,4 +44,4 @@ const removeApplication = async (req, h) => {
 
 exports.addApplication = addApplication;
 exports.updateApplication = updateApplication;
-exports.removeApplication = removeApplication;
+exports.getApplications = getApplications;

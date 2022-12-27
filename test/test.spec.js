@@ -31,6 +31,20 @@ describe("Route Handler Tests", () => {
     expect(res.statusCode).to.equal(200);
   });
 
+  it("responds with all applications", async () => {
+    const findStub = sinon.stub(Application, "find").resolves([]);
+    const res = await server.inject({
+      method: "get",
+      url: "/application",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    expect(findStub.calledOnce).to.equal(true);
+    expect(res.statusCode).to.equal(200);
+    expect(res.result.applications).to.deep.equal([]);
+  });
+
   it("responds with the new application created", async () => {
     const newApp = {
       _id: "newidmade",

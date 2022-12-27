@@ -14,12 +14,20 @@ module.exports = [
     method: "POST",
     path: "/user/create",
     handler: handlers.user.createUser,
-    options: { validate: { payload: Joi.object({ user }) } },
+    options: { validate: { payload: Joi.object(user) } },
   },
   {
     method: "POST",
     path: "/user/login",
     handler: handlers.user.validateUserAndReturnToken,
+  },
+  {
+    method: "GET",
+    path: "/application",
+    options: {
+      auth: "jwt",
+    },
+    handler: handlers.application.getApplications,
   },
   {
     method: "POST",
