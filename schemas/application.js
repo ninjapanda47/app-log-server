@@ -5,7 +5,7 @@ module.exports = {
   companyName: Joi.string(),
   jobTitle: Joi.string(),
   jobUrl: Joi.string(),
-  dateApplied: Joi.date(),
+  dateApplied: Joi.string(),
   status: Joi.string(),
-  notes: Joi.string(),
+  notes: Joi.string().allow(""),
 };
