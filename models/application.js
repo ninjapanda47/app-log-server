@@ -26,6 +26,9 @@ const ApplicationSchema = new Schema({
   notes: {
     type: String,
   },
+  flag: {
+    type: Boolean,
+  },
 });
 
 module.exports = mongoose.model("Application", ApplicationSchema);

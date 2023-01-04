@@ -23,9 +23,15 @@ module.exports = [
   },
   {
     method: "GET",
-    path: "/application",
+    path: "/application/{startDate}/{endDate}",
     options: {
       auth: "jwt",
+      validate: {
+        params: Joi.object({
+          startDate: Joi.string(),
+          endDate: Joi.string(),
+        }),
+      },
     },
     handler: handlers.application.getApplications,
   },
@@ -55,5 +61,19 @@ module.exports = [
       },
     },
     handler: handlers.application.updateApplication,
+  },
+  {
+    method: "GET",
+    path: "/report/{startDate}/{endDate}",
+    options: {
+      auth: "jwt",
+      validate: {
+        params: Joi.object({
+          startDate: Joi.string(),
+          endDate: Joi.string(),
+        }),
+      },
+    },
+    handler: handlers.report.getJobApplicationReport,
   },
 ];

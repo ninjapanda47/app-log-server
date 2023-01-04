@@ -8,4 +8,5 @@ module.exports = {
   dateApplied: Joi.string(),
   status: Joi.string(),
   notes: Joi.string().allow(""),
+  flag: Joi.boolean(),
 };

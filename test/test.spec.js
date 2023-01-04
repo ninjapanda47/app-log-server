@@ -18,6 +18,10 @@ describe("Route Handler Tests", () => {
     server = await init();
   });
 
+  beforeEach(() => {
+    sinon.restore();
+  });
+
   after(async () => {
     await server.stop();
     sinon.restore();
@@ -35,7 +39,7 @@ describe("Route Handler Tests", () => {
     const findStub = sinon.stub(Application, "find").resolves([]);
     const res = await server.inject({
       method: "get",
-      url: "/application",
+      url: "/application/12-01-2022/03-01-2023",
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -131,5 +135,26 @@ describe("Route Handler Tests", () => {
       },
     });
     expect(res.statusCode).to.equal(401);
+  });
+
+  it("responds with report data", async () => {
+    const app1 = { status: "Applied" };
+    const app2 = { status: "In Process" };
+    const app3 = { status: "Rejected" };
+    const findStub = sinon
+      .stub(Application, "find")
+      .resolves([app1, app2, app3]);
+    const res = await server.inject({
+      method: "get",
+      url: "/report/12-01-2022/03-01-2023",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    expect(findStub.calledOnce).to.equal(true);
+    expect(res.statusCode).to.equal(200);
+    expect(res.result.total).to.equal(3);
+    expect(res.result.rejectedCount).to.equal(1);
+    expect(res.result.inProcessCount).to.equal(1);
   });
 });
