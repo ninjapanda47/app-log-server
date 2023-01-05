@@ -3,12 +3,8 @@ const boom = require("boom");
 
 // handlers for add, update and delete applications
 const getApplications = async (req, h) => {
-  const start = new Date(req.params.startDate);
-  const end = new Date(req.params.endDate);
   try {
-    const applications = await Application.find({
-      dateApplied: { $gte: start, $lt: end },
-    });
+    const applications = await Application.find({});
     return {
       applications,
     };

@@ -39,7 +39,7 @@ describe("Route Handler Tests", () => {
     const findStub = sinon.stub(Application, "find").resolves([]);
     const res = await server.inject({
       method: "get",
-      url: "/application/12-01-2022/03-01-2023",
+      url: "/application",
       headers: {
         Authorization: "Bearer " + token,
       },

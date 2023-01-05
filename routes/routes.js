@@ -23,15 +23,9 @@ module.exports = [
   },
   {
     method: "GET",
-    path: "/application/{startDate}/{endDate}",
+    path: "/application",
     options: {
       auth: "jwt",
-      validate: {
-        params: Joi.object({
-          startDate: Joi.string(),
-          endDate: Joi.string(),
-        }),
-      },
     },
     handler: handlers.application.getApplications,
   },
