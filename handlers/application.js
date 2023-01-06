@@ -4,7 +4,7 @@ const boom = require("boom");
 // handlers for add, update and delete applications
 const getApplications = async (req, h) => {
   try {
-    const applications = await Application.find({});
+    const applications = await Application.find({ userId: req.params.userid });
     return {
       applications,
     };

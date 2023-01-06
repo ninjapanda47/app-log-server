@@ -35,11 +35,11 @@ describe("Route Handler Tests", () => {
     expect(res.statusCode).to.equal(200);
   });
 
-  it("responds with all applications", async () => {
+  it("responds with all applications by userid", async () => {
     const findStub = sinon.stub(Application, "find").resolves([]);
     const res = await server.inject({
       method: "get",
-      url: "/application",
+      url: "/application/testuserid",
       headers: {
         Authorization: "Bearer " + token,
       },

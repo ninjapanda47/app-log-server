@@ -23,9 +23,14 @@ module.exports = [
   },
   {
     method: "GET",
-    path: "/application",
+    path: "/application/{userid}",
     options: {
       auth: "jwt",
+      validate: {
+        params: Joi.object({
+          userid: Joi.string(),
+        }),
+      },
     },
     handler: handlers.application.getApplications,
   },
