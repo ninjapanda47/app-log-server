@@ -38,10 +38,24 @@ const updateApplication = async (req, h) => {
     throw boom.badRequest(error);
   }
 };
-const removeApplication = async (req, h) => {
-  // probably don't need this
+
+// this is a hard delete, probably not applicable in real life, but I want to delete if I want
+const removeApplications = async (req, h) => {
+  try {
+    const { deletedCount } = await Application.deleteMany({
+      _id: { $in: req.payload.idsToRemove },
+    });
+    return {
+      success: true,
+      deletedCount,
+    };
+  } catch (error) {
+    console.log(error);
+    throw boom.badRequest(error);
+  }
 };
 
 exports.addApplication = addApplication;
 exports.updateApplication = updateApplication;
 exports.getApplications = getApplications;
+exports.removeApplications = removeApplications;

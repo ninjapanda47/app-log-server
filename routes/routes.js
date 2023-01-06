@@ -1,6 +1,7 @@
 const Joi = require("joi");
 const handlers = require("../handlers");
 const { user, application } = require("../schemas");
+const { array, string } = require("joi");
 
 module.exports = [
   {
@@ -60,6 +61,19 @@ module.exports = [
       },
     },
     handler: handlers.application.updateApplication,
+  },
+  {
+    method: "DELETE",
+    path: "/application",
+    options: {
+      auth: "jwt",
+      validate: {
+        payload: Joi.object({
+          idsToRemove: Joi.array().items(Joi.string()),
+        }),
+      },
+    },
+    handler: handlers.application.removeApplications,
   },
   {
     method: "GET",

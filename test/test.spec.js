@@ -103,6 +103,26 @@ describe("Route Handler Tests", () => {
     expect(res.result.success).to.equal(true);
   });
 
+  it("responds with success true and deletedCount when delete is successful", async () => {
+    const deleteStub = sinon
+      .stub(Application, "deleteMany")
+      .resolves({ ok: 1, deletedCount: 3, n: 3 });
+    const res = await server.inject({
+      method: "delete",
+      url: "/application",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+      payload: {
+        idsToRemove: ["idnumber1", "idnumber2", "idnumber3"],
+      },
+    });
+    expect(deleteStub.calledOnce).to.equal(true);
+    expect(res.statusCode).to.equal(200);
+    expect(res.result.success).to.equal(true);
+    expect(res.result.deletedCount).to.equal(3);
+  });
+
   it("responds with status code 400 when payload input is invalid", async () => {
     const res = await server.inject({
       method: "put",
