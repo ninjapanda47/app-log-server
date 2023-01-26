@@ -9,7 +9,10 @@ exports.init = async () => {
     port: 3000,
     host: "localhost",
     routes: {
-      cors: true,
+      cors: {
+        origin: ["*"],
+        credentials: true,
+      },
     },
   });
 

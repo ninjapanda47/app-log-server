@@ -13,18 +13,18 @@ module.exports = [
   },
   {
     method: "POST",
-    path: "/user/create",
+    path: "/users",
     handler: handlers.user.createUser,
     options: { validate: { payload: Joi.object(user) } },
   },
   {
     method: "POST",
-    path: "/user/login",
+    path: "/users/login",
     handler: handlers.user.validateUserAndReturnToken,
   },
   {
     method: "GET",
-    path: "/application/{userid}",
+    path: "/applications/{userid}",
     options: {
       auth: "jwt",
       validate: {
@@ -37,7 +37,7 @@ module.exports = [
   },
   {
     method: "POST",
-    path: "/application/create",
+    path: "/applications",
     options: {
       auth: "jwt",
       validate: {
@@ -48,7 +48,7 @@ module.exports = [
   },
   {
     method: "PUT",
-    path: "/application/{id}",
+    path: "/applications/{id}",
     options: {
       auth: "jwt",
       validate: {
@@ -64,7 +64,7 @@ module.exports = [
   },
   {
     method: "DELETE",
-    path: "/application",
+    path: "/applications",
     options: {
       auth: "jwt",
       validate: {
