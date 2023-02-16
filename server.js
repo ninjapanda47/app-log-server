@@ -15,8 +15,6 @@ exports.init = async () => {
       },
     },
   });
-
-  require("./models");
   await server.register(Jwt);
   server.auth.strategy("jwt", "jwt", {
     keys: { key: process.env.SECRET_KEY, algorithms: ["HS256"] },

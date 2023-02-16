@@ -39,7 +39,7 @@ describe("Route Handler Tests", () => {
     const findStub = sinon.stub(Application, "find").resolves([]);
     const res = await server.inject({
       method: "get",
-      url: "/application/testuserid",
+      url: "/applications/testuserid",
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -59,7 +59,7 @@ describe("Route Handler Tests", () => {
     const saveStub = sinon.stub(Application.prototype, "save").resolves(newApp);
     const res = await server.inject({
       method: "post",
-      url: "/application/create",
+      url: "/applications",
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -87,7 +87,7 @@ describe("Route Handler Tests", () => {
       .resolves(updatedApp);
     const res = await server.inject({
       method: "put",
-      url: "/application/12345",
+      url: "/applications/12345",
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -109,7 +109,7 @@ describe("Route Handler Tests", () => {
       .resolves({ ok: 1, deletedCount: 3, n: 3 });
     const res = await server.inject({
       method: "delete",
-      url: "/application",
+      url: "/applications",
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -126,7 +126,7 @@ describe("Route Handler Tests", () => {
   it("responds with status code 400 when payload input is invalid", async () => {
     const res = await server.inject({
       method: "put",
-      url: "/application/12345",
+      url: "/applications/12345",
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -143,7 +143,7 @@ describe("Route Handler Tests", () => {
   it("responds with status code 401 when wrong token is provided", async () => {
     const res = await server.inject({
       method: "put",
-      url: "/application/12345",
+      url: "/applications/12345",
       headers: {
         Authorization: "Bearer " + "imafaketoken",
       },
