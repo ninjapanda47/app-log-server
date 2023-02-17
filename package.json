@@ -4,7 +4,7 @@
   "description": "Backend server to track job applications",
   "main": "server.js",
   "scripts": {
-    "serve": "node index.js",
+    "serve": "nodemon index.js",
     "test": "mocha"
   },
   "author": "Sandi Gau",
@@ -22,6 +22,7 @@
   "devDependencies": {
     "chai": "^4.3.7",
     "mocha": "^10.2.0",
+    "nodemon": "^2.0.20",
     "prettier": "2.8.1",
     "sinon": "^15.0.1"
   }
